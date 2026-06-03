@@ -27,7 +27,15 @@ class VocabularyQuizApp:
         self.word_var = tk.StringVar(value="단어를 불러오는 중...")
         self.feedback_var = tk.StringVar(value="")
         self.score_var = tk.StringVar(value="Score: 0/0")
+	self.difficulty = tk.StringVar(value="easy")
 
+        difficulty_frame = ttk.Frame(root)
+        difficulty_frame.pack(pady=6)
+
+        ttk.Label(difficulty_frame, text="난이도").pack(side=tk.LEFT)
+        ttk.Radiobutton(difficulty_frame, text="easy", variable=self.difficulty, value="easy").pack(side=tk.LEFT)
+        ttk.Radiobutton( difficulty_frame, text="medium", variable=self.difficulty, value="medium").pack(side=tk.LEFT)
+        ttk.Radiobutton( difficulty_frame, text="hard", variable=self.difficulty, value="hard").pack(side=tk.LEFT)
         ttk.Label(root, text="영단어").pack(pady=(16, 4))
         ttk.Label(root, textvariable=self.word_var, font=("NanumGothic", 24)).pack()
 
@@ -48,6 +56,7 @@ class VocabularyQuizApp:
         self.next_word()
 
     def next_word(self) -> None:
+	filtered_words = [ w for w in self.words  if w.difficulty == self.difficulty.get()]
         self.current = draw_word(self.words, self.rng)
         self.word_var.set(self.current.term)
         self.answer_entry.delete(0, tk.END)

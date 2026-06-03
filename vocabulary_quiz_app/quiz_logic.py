@@ -9,7 +9,7 @@ from dataclasses import dataclass
 class Word:
     term: str
     meaning: str
-
+    difficulty: str
 
 def normalize_answer(text: str) -> str:
     return " ".join(text.strip().lower().split())
