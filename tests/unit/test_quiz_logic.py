@@ -4,14 +4,17 @@ from vocabulary_quiz_app.quiz_logic import Word, check_answer, draw_word
 
 
 def test_check_answer_normalized() -> None:
-    word = Word(term="apple", meaning="사과")
+    word = Word(term="apple", meaning="사과", difficulty="easy")
     assert check_answer(word, "사과")
     assert check_answer(word, "  사과 ")
     assert not check_answer(word, "apple")
 
 
 def test_draw_word_uses_rng_choice() -> None:
-    words = [Word(term="a", meaning="A"), Word(term="b", meaning="B")]
+    words = [
+        Word(term="a", meaning="A", difficulty="easy"),
+        Word(term="b", meaning="B", difficulty="easy"),
+    ]
 
     class FixedRng:
         def choice(self, seq):
